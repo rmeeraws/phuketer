@@ -1,15 +1,17 @@
 import os
 import asyncio
-from openai import OpenAI # Библиотека openai теперь используется для работы с DeepSeek
+from openai import OpenAI  # Библиотека openai теперь используется для работы с DeepSeek
 from googleapiclient.discovery import build
 import logging
 import re
 
-# Импортируем наши ключи из переменных окружения
-DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
-GOOGLE_SEARCH_API_KEY = os.getenv("GOOGLE_SEARCH_API_KEY")
-CUSTOM_SEARCH_ENGINE_ID = os.getenv("CUSTOM_SEARCH_ENGINE_ID")
-YANDEX_SPEECHKIT_API_KEY = os.getenv("YANDEX_SPEECHKIT_API_KEY")
+# Импортируем ключи через модуль config, который заранее загружает переменные окружения
+from config import (
+    DEEPSEEK_API_KEY,
+    OPENAI_API_KEY,
+    GOOGLE_SEARCH_API_KEY,
+    CUSTOM_SEARCH_ENGINE_ID,
+)
 
 # Класс для работы с поисковиком Google
 class GoogleSearch:
@@ -38,20 +40,25 @@ class GoogleSearch:
             return []
 
 class LLMManager:
-    """
-    Класс для управления и выбора языковых моделей.
-    """
+    """Класс для управления и выбора языковых моделей."""
+
     def __init__(self):
-        if not DEEPSEEK_API_KEY:
-            raise RuntimeError("DEEPSEEK_API_KEY is missing")
-        self.deepseek_client = OpenAI(
-            api_key=DEEPSEEK_API_KEY,
-            base_url="https://api.deepseek.com/v1"
-        )
+        self.deepseek_client = None
+
+        if DEEPSEEK_API_KEY:
+            self.deepseek_client = OpenAI(
+                api_key=DEEPSEEK_API_KEY,
+                base_url="https://api.deepseek.com/v1",
+            )
+        elif not OPENAI_API_KEY:
+            raise RuntimeError(
+                "Either DEEPSEEK_API_KEY or OPENAI_API_KEY must be set"
+            )
+
         if GOOGLE_SEARCH_API_KEY and CUSTOM_SEARCH_ENGINE_ID:
             self.google_search_client = GoogleSearch(
                 api_key=GOOGLE_SEARCH_API_KEY,
-                cse_id=CUSTOM_SEARCH_ENGINE_ID
+                cse_id=CUSTOM_SEARCH_ENGINE_ID,
             )
         else:
             self.google_search_client = None
@@ -113,11 +120,14 @@ class LLMManager:
         messages = [{"role": "system", "content": system_prompt}] + user_messages
 
         try:
+            if not self.deepseek_client:
+                return await self.get_openai_response(user_messages, user_id)
+
             response = self.deepseek_client.chat.completions.create(
                 model="deepseek-chat",
                 messages=messages,
                 max_tokens=4000,
-                temperature=0.7
+                temperature=0.7,
             )
             return self._convert_markdown_to_html(response.choices[0].message.content)
         except Exception as e:
@@ -141,22 +151,26 @@ class LLMManager:
         Получает ответ от указанной модели.
         """
         if model_name == "deepseek":
-            return await self.get_deepseek_response(user_messages, user_id)
+            if self.deepseek_client:
+                return await self.get_deepseek_response(user_messages, user_id)
+            return await self.get_openai_response(user_messages, user_id)
         elif model_name == "openai":
             return await self.get_openai_response(user_messages, user_id)
         else:
-            return await self.get_deepseek_response(user_messages, user_id)
+            if self.deepseek_client:
+                return await self.get_deepseek_response(user_messages, user_id)
+            return await self.get_openai_response(user_messages, user_id)
 
     async def get_openai_response(self, user_messages: list, user_id: int = 0):
         """
         Получает ответ от OpenAI API.
         """
-        if not os.getenv("OPENAI_API_KEY"):
+        if not OPENAI_API_KEY:
             return await self.get_deepseek_response(user_messages, user_id)
 
         from openai import OpenAI
-        
-        openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+        openai_client = OpenAI(api_key=OPENAI_API_KEY)
         
         last_user_prompt = user_messages[-1]['content']
         search_needed = self.check_if_search_needed(last_user_prompt)
@@ -218,18 +232,21 @@ class LLMManager:
         Транскрибирует аудиофайл в текст с помощью OpenAI Whisper.
         """
         try:
-            if os.getenv("OPENAI_API_KEY"):
+            if OPENAI_API_KEY:
                 from openai import OpenAI
-                client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-                
+
+                client = OpenAI(api_key=OPENAI_API_KEY)
+
                 with open(audio_file_path, "rb") as audio_file:
                     transcript = client.audio.transcriptions.create(
                         model="whisper-1",
-                        file=audio_file
+                        file=audio_file,
                     )
                 return transcript.text
             else:
-                logging.warning("OpenAI API ключ не найден, транскрипция недоступна")
+                logging.warning(
+                    "OpenAI API ключ не найден, транскрипция недоступна"
+                )
                 return ""
         except Exception as e:
             logging.error(f"Ошибка при транскрипции аудио: {e}", exc_info=True)

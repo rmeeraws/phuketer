@@ -51,8 +51,8 @@ class LLMManager:
                 base_url="https://api.deepseek.com/v1",
             )
         elif not OPENAI_API_KEY:
-            raise RuntimeError(
-                "Either DEEPSEEK_API_KEY or OPENAI_API_KEY must be set"
+            logging.warning(
+                "Neither DEEPSEEK_API_KEY nor OPENAI_API_KEY is set; replies may be unavailable"
             )
 
         if GOOGLE_SEARCH_API_KEY and CUSTOM_SEARCH_ENGINE_ID:
@@ -166,7 +166,8 @@ class LLMManager:
         Получает ответ от OpenAI API.
         """
         if not OPENAI_API_KEY:
-            return await self.get_deepseek_response(user_messages, user_id)
+            logging.warning("OPENAI_API_KEY is not set; cannot fetch OpenAI response")
+            return None
 
         from openai import OpenAI
 

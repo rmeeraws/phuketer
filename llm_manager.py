@@ -1,15 +1,16 @@
 import os
 import asyncio
-from openai import OpenAI # Библиотека openai теперь используется для работы с DeepSeek
+from openai import OpenAI  # Библиотека openai теперь используется для работы с DeepSeek
 from googleapiclient.discovery import build
 import logging
 import re
 
-# Импортируем наши ключи из переменных окружения
-DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
-GOOGLE_SEARCH_API_KEY = os.getenv("GOOGLE_SEARCH_API_KEY")
-CUSTOM_SEARCH_ENGINE_ID = os.getenv("CUSTOM_SEARCH_ENGINE_ID")
-YANDEX_SPEECHKIT_API_KEY = os.getenv("YANDEX_SPEECHKIT_API_KEY")
+# Импортируем ключи через модуль config, который заранее загружает переменные окружения
+from config import (
+    DEEPSEEK_API_KEY,
+    GOOGLE_SEARCH_API_KEY,
+    CUSTOM_SEARCH_ENGINE_ID,
+)
 
 # Класс для работы с поисковиком Google
 class GoogleSearch:

@@ -42,6 +42,8 @@ class LLMManager:
     Класс для управления и выбора языковых моделей.
     """
     def __init__(self):
+        if not DEEPSEEK_API_KEY:
+            raise RuntimeError("DEEPSEEK_API_KEY is missing")
         self.deepseek_client = OpenAI(
             api_key=DEEPSEEK_API_KEY,
             base_url="https://api.deepseek.com/v1"

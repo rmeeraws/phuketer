@@ -1,9 +1,9 @@
-import os
 import asyncio
-from openai import OpenAI  # Библиотека openai теперь используется для работы с DeepSeek
-from googleapiclient.discovery import build
 import logging
 import re
+
+from googleapiclient.discovery import build
+from openai import OpenAI  # Библиотека openai теперь используется для работы с DeepSeek
 
 # Импортируем ключи через модуль config, который заранее загружает переменные окружения
 from config import (

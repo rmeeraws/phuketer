@@ -2,7 +2,8 @@ import os
 from dotenv import load_dotenv
 
 # Загружаем переменные из .env файла
-load_dotenv()
+# После изменения .env файл сервис нужно перезапустить, чтобы обновить значения
+load_dotenv(override=True)
 
 # Ключи для API
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()

@@ -301,7 +301,7 @@ async def handle_voice_message(message: types.Message):
             user_history[chat_key].append({"role": "assistant", "content": response_text})
             await send_long_message(message, response_text)
         else:
-            await bot.edit_message_text("🙈 Не смог получить ответ, попробуй ещё раз.", message.chat.id, progress_msg.message_id)
+            await progress_msg.edit_text("🙈 Не смог получить ответ, попробуй ещё раз.")
 
         logging.info(f"Отправлен ответ на голосовое сообщение: {response_text}")
 
@@ -315,7 +315,7 @@ async def handle_voice_message(message: types.Message):
             await bot.delete_message(message.chat.id, progress_msg.message_id)
         except Exception:
             try:
-                await bot.edit_message_text("✅ Готово", message.chat.id, progress_msg.message_id)
+                await progress_msg.edit_text("✅ Готово")
             except Exception:
                 pass
 
@@ -354,7 +354,7 @@ async def handle_text_message(message: types.Message):
             user_history[chat_key].append({"role": "assistant", "content": response_text})
             await send_long_message(message, response_text)
         else:
-            await bot.edit_message_text("🙈 Не смог получить ответ, попробуй ещё раз.", message.chat.id, progress_msg.message_id)
+            await progress_msg.edit_text("🙈 Не смог получить ответ, попробуй ещё раз.")
 
         logging.info(f"Отправлен ответ: {response_text}")
 
@@ -368,7 +368,7 @@ async def handle_text_message(message: types.Message):
             await bot.delete_message(message.chat.id, progress_msg.message_id)
         except Exception:
             try:
-                await bot.edit_message_text("✅ Готово", message.chat.id, progress_msg.message_id)
+                await progress_msg.edit_text("✅ Готово")
             except Exception:
                 pass
 

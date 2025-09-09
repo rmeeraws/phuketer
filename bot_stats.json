@@ -1,0 +1,156 @@
+{
+  "total_users": 12,
+  "total_messages": 284,
+  "total_voice_messages": 30,
+  "total_searches": 9,
+  "users": {
+    "225573049": {
+      "username": "n0ketchup",
+      "first_seen": "2025-09-06T10:40:57.381282",
+      "messages_count": 233,
+      "voice_messages_count": 20,
+      "searches_triggered": 9,
+      "last_seen": "2025-09-09T20:43:18.066280"
+    },
+    "1776136691": {
+      "username": "ellkarafaelka",
+      "first_seen": "2025-09-06T10:41:17.048812",
+      "messages_count": 2,
+      "voice_messages_count": 0,
+      "searches_triggered": 0,
+      "last_seen": "2025-09-06T10:44:29.931321"
+    },
+    "753827651": {
+      "username": "iskandricklamarr",
+      "first_seen": "2025-09-06T10:43:39.171068",
+      "messages_count": 1,
+      "voice_messages_count": 0,
+      "searches_triggered": 0,
+      "last_seen": "2025-09-06T10:43:39.171074"
+    },
+    "304666484": {
+      "username": "Holy_idea",
+      "first_seen": "2025-09-06T10:54:52.300493",
+      "messages_count": 1,
+      "voice_messages_count": 0,
+      "searches_triggered": 0,
+      "last_seen": "2025-09-06T10:54:52.300499"
+    },
+    "5844401297": {
+      "username": "vaska_vs",
+      "first_seen": "2025-09-06T11:12:31.872544",
+      "messages_count": 2,
+      "voice_messages_count": 0,
+      "searches_triggered": 0,
+      "last_seen": "2025-09-06T11:13:43.609054"
+    },
+    "134690398": {
+      "username": "R0ZZ1E",
+      "first_seen": "2025-09-06T11:36:58.696055",
+      "messages_count": 4,
+      "voice_messages_count": 0,
+      "searches_triggered": 0,
+      "last_seen": "2025-09-06T11:38:06.632535"
+    },
+    "881760303": {
+      "username": "ramdest",
+      "first_seen": "2025-09-07T08:49:36.423591",
+      "messages_count": 1,
+      "voice_messages_count": 0,
+      "searches_triggered": 0,
+      "last_seen": "2025-09-07T08:49:36.423597"
+    },
+    "1345783381": {
+      "username": "Unknown",
+      "first_seen": "2025-09-07T13:24:41.619766",
+      "messages_count": 1,
+      "voice_messages_count": 1,
+      "searches_triggered": 0,
+      "last_seen": "2025-09-07T13:24:41.619770"
+    },
+    "259815313": {
+      "username": "Ponyashin",
+      "first_seen": "2025-09-07T21:23:12.088565",
+      "messages_count": 1,
+      "voice_messages_count": 0,
+      "searches_triggered": 0,
+      "last_seen": "2025-09-07T21:23:12.088571"
+    },
+    "1222857171": {
+      "username": "rakhimzhanovamir",
+      "first_seen": "2025-09-07T21:31:50.793233",
+      "messages_count": 34,
+      "voice_messages_count": 9,
+      "searches_triggered": 0,
+      "last_seen": "2025-09-08T05:54:46.822806"
+    },
+    "928072461": {
+      "username": "ViolettaGN",
+      "first_seen": "2025-09-08T03:40:38.205756",
+      "messages_count": 1,
+      "voice_messages_count": 0,
+      "searches_triggered": 0,
+      "last_seen": "2025-09-08T03:40:38.205763"
+    },
+    "5048247307": {
+      "username": "svetlana_gnedash",
+      "first_seen": "2025-09-08T15:58:20.102263",
+      "messages_count": 3,
+      "voice_messages_count": 0,
+      "searches_triggered": 0,
+      "last_seen": "2025-09-09T08:24:03.142442"
+    }
+  },
+  "daily_stats": {
+    "2025-09-06": {
+      "messages": 51,
+      "voice_messages": 2,
+      "unique_users": [
+        225573049,
+        1776136691,
+        753827651,
+        304666484,
+        5844401297,
+        134690398
+      ],
+      "searches": 5,
+      "unique_users_count": 6
+    },
+    "2025-09-07": {
+      "messages": 180,
+      "voice_messages": 24,
+      "unique_users": [
+        225573049,
+        881760303,
+        1345783381,
+        259815313,
+        1222857171
+      ],
+      "searches": 4,
+      "unique_users_count": 5
+    },
+    "2025-09-08": {
+      "messages": 40,
+      "voice_messages": 2,
+      "unique_users": [
+        928072461,
+        225573049,
+        1222857171,
+        5048247307
+      ],
+      "searches": 0,
+      "unique_users_count": 4
+    },
+    "2025-09-09": {
+      "messages": 13,
+      "voice_messages": 2,
+      "unique_users": [
+        5048247307,
+        225573049
+      ],
+      "searches": 0,
+      "unique_users_count": 2
+    }
+  },
+  "start_date": "2025-09-06T10:40:37.380930"
+}
